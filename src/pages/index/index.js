@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, useReady, useHide, navigateTo } from 'remax/wechat';
+import { View, useReady, useHide, navigateTo, Ad } from 'remax/wechat';
 import { useObserver } from 'mobx-react';
 import { toJS } from 'mobx';
 import useStores from '../../hooks/useStores';
@@ -12,6 +12,7 @@ import Grid from '@vant/weapp/dist/grid';
 import GridItem from '@vant/weapp/dist/grid-item';
 import Notify from '@vant/weapp/dist/notify';
 import notify from '@vant/weapp/dist/notify/notify';
+import Divider from '@vant/weapp/dist/divider';
 
 const DATA_LIST = 'DATA_LIST';
 let inited = false;
@@ -36,9 +37,28 @@ const IndexPage = () => {
   });
 
   const [show, setShow] = useState(false);
+  const [ad, setAd] = useState(true);
   let newName = '';
   return useObserver(() => (
     <View className={styles.app}>
+      <View hidden={ad}>
+        <Ad
+          unit-id='adunit-4db5a57f70ebc799'
+          ad-type='grid'
+          grid-opacity='0.8'
+          grid-count='5'
+          ad-theme='white'
+          bindload={() => {
+            console.log('ad load');
+            setAd(false);
+          }}
+          binderror={() => {
+            console.log('ad error');
+            setAd(true);
+          }}
+        ></Ad>
+        <Divider />
+      </View>
       <Notify id='van-notify' />
       <Grid column-num={3} gutter={10} clickable square>
         {listStore.list.map(list => {
@@ -74,6 +94,7 @@ const IndexPage = () => {
       >
         <View>
           <Field
+            value=''
             type='text'
             placeholder='请输入一个名单'
             border={false}
@@ -85,6 +106,7 @@ const IndexPage = () => {
           />
         </View>
       </Dialog>
+      <Divider />
       <Icon
         name='plus'
         size={32}

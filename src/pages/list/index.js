@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, Text } from 'remax/wechat';
+import { View, Ad } from 'remax/wechat';
 import { useObserver } from 'mobx-react';
 import useStores from '../../hooks/useStores';
 import styles from './index.module.less';
@@ -11,7 +11,9 @@ import Grid from '@vant/weapp/dist/grid';
 import GridItem from '@vant/weapp/dist/grid-item';
 import Notify from '@vant/weapp/dist/notify';
 import notify from '@vant/weapp/dist/notify/notify';
-import { autorun } from 'mobx';
+import Divider from '@vant/weapp/dist/divider';
+import DropMenu from '@vant/weapp/dist/dropdown-menu';
+import DropItem from '@vant/weapp/dist/dropdown-item';
 
 const IndexPage = () => {
   const { listStore } = useStores();
@@ -23,28 +25,61 @@ const IndexPage = () => {
     return;
   }
   const { people, name, add } = currentList;
-  autorun(() => {
-    console.log(people);
-  });
+  const [status, setStatus] = useState(-1);
   const [show, setShow] = useState(false);
+  const [ad, setAd] = useState(true);
   let newName = '';
   return useObserver(() => (
     <View className={styles.app}>
-      <Text className={styles.title}>名单：{name}</Text>
+      <View hidden={ad}>
+        <Ad
+          unit-id='adunit-e5ef9e8a2e77c1d1'
+          ad-type='video'
+          ad-theme='white'
+          bindload={() => {
+            console.log('ad load');
+            setAd(false);
+          }}
+          binderror={() => {
+            console.log('ad error');
+            setAd(true);
+          }}
+        ></Ad>
+        <Divider />
+      </View>
       <Notify id='van-notify' />
+      <DropMenu>
+        <DropItem value={0} options={[{ text: `名单：${name}`, value: 0 }]} />
+        <DropItem
+          value={status}
+          options={[
+            { text: '全部', value: -1 },
+            { text: '未选', value: 0 },
+            { text: '已选', value: 1 },
+          ]}
+          bindchange={({ detail }) => {
+            setStatus(detail);
+          }}
+        />
+      </DropMenu>
       <Grid column-num={3} gutter={10} clickable square>
-        {people.map(person => {
-          return (
-            <GridItem
-              key={person.id}
-              text={person.name}
-              icon={person.status === 1 ? 'success' : null}
-              bindclick={() => {
-                person.status = person.status ? 0 : 1;
-              }}
-            />
-          );
-        })}
+        {people
+          .filter(person => {
+            if (status === -1) return true;
+            return person.status === status;
+          })
+          .map(person => {
+            return (
+              <GridItem
+                key={person.id}
+                text={person.name}
+                icon={person.status === 1 ? 'success' : null}
+                bindclick={() => {
+                  person.status = person.status ? 0 : 1;
+                }}
+              />
+            );
+          })}
       </Grid>
       <Dialog
         use-slot
@@ -64,6 +99,7 @@ const IndexPage = () => {
       >
         <View>
           <Field
+            value=''
             type='text'
             placeholder='请输入一个名称'
             border={false}
@@ -75,6 +111,7 @@ const IndexPage = () => {
           />
         </View>
       </Dialog>
+      <Divider />
       <View className={styles.bottom}>
         <Icon
           name='replay'
