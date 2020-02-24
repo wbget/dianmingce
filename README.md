@@ -1,13 +1,8 @@
-# Remax Wechat Template
+# 点名册
 
-使用 Remax 开发微信小程序的模板。
+![qrcode](./qrcode.jpg)
 
-通过该模板创建一个新项目：
-
-```bash
-$ npx degit remaxjs/template-wechat my-app
-$ cd my-app
-```
+使用 Remax + Mobx + VantUI 开发的微信小程序。
 
 ## 开始开发
 
