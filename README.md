@@ -2,7 +2,7 @@
 
 ![qrcode](https://user-images.githubusercontent.com/12776391/75139290-34d5f680-5727-11ea-8fd0-a7f3ddd3ef20.png)
 
-使用 Remax + Mobx + VantUI 开发的微信小程序。
+使用 [Remax](https://github.com/remaxjs/remax)+[Mobx](https://github.com/mobxjs/mobx)+[Vant](https://youzan.github.io/vant-weapp/#/intro)开发的微信小程序。
 
 ## 开始开发
 
