@@ -1,0 +1,30 @@
+{
+  "name": "dianmingce",
+  "private": true,
+  "version": "1.0.0",
+  "description": "wechat app",
+  "main": "index.js",
+  "keywords": [],
+  "author": "wbget",
+  "license": "MIT",
+  "scripts": {
+    "dev": "remax build -t wechat -w",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "build": "NODE_ENV=production remax build -t wechat"
+  },
+  "dependencies": {
+    "@vant/weapp": "^1.0.5",
+    "clsx": "^1.0.4",
+    "less": "^3.11.1",
+    "mobx": "^5.15.4",
+    "mobx-react": "^6.1.8",
+    "react": "^16.8.6",
+    "remax": "^1.1.0",
+    "remax-cli": "^1.1.0",
+    "rimraf": "^2.6.3"
+  },
+  "devDependencies": {
+    "chokidar": "^2.1.8"
+  }
+}
