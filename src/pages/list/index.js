@@ -31,22 +31,6 @@ const IndexPage = () => {
   let newName = '';
   return useObserver(() => (
     <View className={styles.app}>
-      <View hidden={ad}>
-        <Ad
-          unit-id='adunit-e5ef9e8a2e77c1d1'
-          ad-type='video'
-          ad-theme='white'
-          bindload={() => {
-            console.log('ad load');
-            setAd(false);
-          }}
-          binderror={() => {
-            console.log('ad error');
-            setAd(true);
-          }}
-        ></Ad>
-        <Divider />
-      </View>
       <Notify id='van-notify' />
       <DropMenu>
         <DropItem value={0} options={[{ text: `名单：${name}`, value: 0 }]} />
@@ -129,6 +113,22 @@ const IndexPage = () => {
             setShow(true);
           }}
         ></Icon>
+      </View>
+      <View hidden={ad}>
+        <Divider />
+        <Ad
+          unit-id='adunit-e5ef9e8a2e77c1d1'
+          ad-type='video'
+          ad-theme='white'
+          bindload={() => {
+            console.log('ad load');
+            setAd(false);
+          }}
+          binderror={() => {
+            console.log('ad error');
+            setAd(true);
+          }}
+        ></Ad>
       </View>
     </View>
   ));

@@ -41,24 +41,6 @@ const IndexPage = () => {
   let newName = '';
   return useObserver(() => (
     <View className={styles.app}>
-      <View hidden={ad}>
-        <Ad
-          unit-id='adunit-4db5a57f70ebc799'
-          ad-type='grid'
-          grid-opacity='0.8'
-          grid-count='5'
-          ad-theme='white'
-          bindload={() => {
-            console.log('ad load');
-            setAd(false);
-          }}
-          binderror={() => {
-            console.log('ad error');
-            setAd(true);
-          }}
-        ></Ad>
-        <Divider />
-      </View>
       <Notify id='van-notify' />
       <Grid column-num={3} gutter={10} clickable square>
         {listStore.list.map(list => {
@@ -114,6 +96,20 @@ const IndexPage = () => {
           setShow(true);
         }}
       ></Icon>
+      <View hidden={ad}>
+        <Divider />
+        <Ad
+          unit-id='adunit-397bfc134463095b'
+          bindload={() => {
+            console.log('ad load');
+            setAd(false);
+          }}
+          binderror={() => {
+            console.log('ad error');
+            setAd(true);
+          }}
+        ></Ad>
+      </View>
     </View>
   ));
 };
